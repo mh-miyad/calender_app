@@ -1,423 +1,457 @@
 /* --- Base & Variables --- */
 :root {
-    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --secondary-gradient: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
-    --action-gradient: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
-    --delete-gradient: linear-gradient(to right, #f093fb 0%, #f5576c 100%);
-    --simulated-gradient: linear-gradient(to right, #fccb90 0%, #d57eeb 100%);
-    --text-primary: #e0e0e0;
-    --text-secondary: #a0a0a0;
-    --bg-primary: #1a1a2e; /* Dark background */
-    --bg-secondary: #16213e;
-    --bg-accent: #0f3460;
-    --glass-bg: rgba(255, 255, 255, 0.1); /* Glass background */
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --border-radius-m: 12px;
-    --border-radius-s: 8px;
-    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-gradient: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+  --action-gradient: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+  --delete-gradient: linear-gradient(to right, #f093fb 0%, #f5576c 100%);
+  --simulated-gradient: linear-gradient(to right, #fccb90 0%, #d57eeb 100%);
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --bg-primary: #1a1a2e; /* Dark background */
+  --bg-secondary: #16213e;
+  --bg-accent: #0f3460;
+  --glass-bg: rgba(255, 255, 255, 0.1); /* Glass background */
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --border-radius-m: 12px;
+  --border-radius-s: 8px;
+  --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    color: var(--text-primary);
-    background-color: var(--bg-primary); /* Fallback */
-    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-    min-height: 100vh;
-    font-size: 16px; /* Base font size */
+  font-family: "Inter", sans-serif;
+  margin: 0;
+  color: var(--text-primary);
+  background-color: var(--bg-primary); /* Fallback */
+  background: linear-gradient(
+    180deg,
+    var(--bg-primary) 0%,
+    var(--bg-secondary) 100%
+  );
+  min-height: 100vh;
+  font-size: 16px; /* Base font size */
 }
 
 .app-background {
-    /* Can add background image here if needed for glass effect */
-    padding: 20px;
+  /* Can add background image here if needed for glass effect */
+  padding: 20px;
 }
 
 .calendar-app {
-    max-width: 1100px;
-    margin: 20px auto;
-    background: var(--bg-secondary);
-    border-radius: var(--border-radius-m);
-    box-shadow: var(--shadow);
-    padding: 25px 30px;
-    border: 1px solid var(--glass-border);
+  max-width: 1100px;
+  margin: 20px auto;
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-m);
+  box-shadow: var(--shadow);
+  padding: 25px 30px;
+  border: 1px solid var(--glass-border);
 }
 
 /* --- Header --- */
 .app-header {
-    text-align: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--glass-border);
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--glass-border);
 }
 
 .app-header h1 {
-    font-weight: 700;
-    font-size: 2.2em;
-    margin-bottom: 20px;
-    background: var(--primary-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-     text-fill-color: transparent; /* Standard property */
+  font-weight: 700;
+  font-size: 2.2em;
+  margin-bottom: 20px;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent; /* Standard property */
 }
 
 .controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .controls h2 {
-    margin: 0 15px;
-    font-weight: 500;
-    font-size: 1.4em;
-    color: var(--text-primary);
-    flex-grow: 1;
-    text-align: center;
+  margin: 0 15px;
+  font-weight: 500;
+  font-size: 1.4em;
+  color: var(--text-primary);
+  flex-grow: 1;
+  text-align: center;
 }
 
-.control-btn, .action-btn, .sync-btn {
-    padding: 10px 18px;
-    cursor: pointer;
-    border: none;
-    border-radius: var(--border-radius-s);
-    font-size: 0.95em;
-    font-weight: 500;
-    color: white;
-    transition: all 0.3s ease;
-    background-size: 200% auto; /* For gradient transition */
+.control-btn,
+.action-btn,
+.sync-btn {
+  padding: 10px 18px;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--border-radius-s);
+  font-size: 0.95em;
+  font-weight: 500;
+  color: white;
+  transition: all 0.3s ease;
+  background-size: 200% auto; /* For gradient transition */
 }
 
-.control-btn:hover, .action-btn:hover, .sync-btn:hover {
-    background-position: right center; /* Change gradient direction */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+.control-btn:hover,
+.action-btn:hover,
+.sync-btn:hover {
+  background-position: right center; /* Change gradient direction */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .control-btn {
-    background: var(--bg-accent);
-    color: var(--text-secondary);
+  background: var(--bg-accent);
+  color: var(--text-secondary);
 }
 .control-btn:hover {
-     background: var(--primary-gradient);
-     color: white;
+  background: var(--primary-gradient);
+  color: white;
 }
 
 .action-btn {
-    background-image: var(--action-gradient);
+  background-image: var(--action-gradient);
 }
 .delete-btn {
-     background-image: var(--delete-gradient);
+  background-image: var(--delete-gradient);
 }
 .simulated-btn {
-     background-image: var(--simulated-gradient);
+  background-image: var(--simulated-gradient);
 }
 
 .sync-btn {
-    background-color: var(--bg-accent);
-    font-weight: bold;
-    width: 40px; /* Slightly larger sync buttons */
-    height: 40px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: var(--bg-accent);
+  font-weight: bold;
+  width: 40px; /* Slightly larger sync buttons */
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .sync-btn:hover {
-     background-image: var(--secondary-gradient);
-     color: var(--bg-primary);
+  background-image: var(--secondary-gradient);
+  color: var(--bg-primary);
 }
-
 
 /* --- Calendar Grid --- */
 .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px; /* Increased gap for visual separation */
-    margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px; /* Increased gap for visual separation */
+  margin-bottom: 30px;
 }
 
 .day-header {
-    font-weight: 600;
-    text-align: center;
-    padding: 10px 5px;
-    color: var(--text-secondary);
-    font-size: 0.9em;
+  font-weight: 600;
+  text-align: center;
+  padding: 10px 5px;
+  color: var(--text-secondary);
+  font-size: 0.9em;
 }
 
 .calendar-day {
-    background-color: rgba(255, 255, 255, 0.05); /* Subtle background */
-    border-radius: var(--border-radius-s);
-    padding: 8px;
-    min-height: 100px;
-    font-size: 0.9em;
-    position: relative;
-    transition: background-color 0.3s ease;
-    display: flex;
-    flex-direction: column; /* Stack day number and events */
-    border: 1px solid transparent; /* Placeholder for hover effect */
+  background-color: rgba(255, 255, 255, 0.05); /* Subtle background */
+  border-radius: var(--border-radius-s);
+  padding: 8px;
+  min-height: 100px;
+  font-size: 0.9em;
+  position: relative;
+  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column; /* Stack day number and events */
+  border: 1px solid transparent; /* Placeholder for hover effect */
 }
 
 .calendar-day:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: var(--glass-border);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--glass-border);
 }
 
 .calendar-day span.day-number {
-    display: block;
-    text-align: right;
-    font-weight: 500;
-    margin-bottom: 5px;
-    font-size: 0.9em;
-    color: var(--text-secondary);
+  display: block;
+  text-align: right;
+  font-weight: 500;
+  margin-bottom: 5px;
+  font-size: 0.9em;
+  color: var(--text-secondary);
 }
 
 .calendar-day.other-month {
-    background-color: transparent;
-    opacity: 0.5;
+  background-color: transparent;
+  opacity: 0.5;
 }
 .calendar-day.other-month:hover {
-     background-color: rgba(255, 255, 255, 0.05);
-     border-color: transparent;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: transparent;
 }
 
 .calendar-day.today {
-     background-color: rgba(79, 172, 254, 0.15); /* Subtle today highlight */
-     border: 1px solid rgba(79, 172, 254, 0.4);
+  background-color: rgba(79, 172, 254, 0.15); /* Subtle today highlight */
+  border: 1px solid rgba(79, 172, 254, 0.4);
 }
 .calendar-day.today span.day-number {
-    color: #4facfe; /* Use a color from the action gradient */
-    font-weight: 700;
-    font-size: 1em;
+  color: #4facfe; /* Use a color from the action gradient */
+  font-weight: 700;
+  font-size: 1em;
 }
 
 .events-container {
-    flex-grow: 1; /* Allow events container to fill space */
-    overflow-y: auto; /* Scroll if too many events */
-    max-height: 70px; /* Limit height to prevent overflow */
-    padding-right: 4px; /* Space for scrollbar */
+  flex-grow: 1; /* Allow events container to fill space */
+  overflow-y: auto; /* Scroll if too many events */
+  max-height: 70px; /* Limit height to prevent overflow */
+  padding-right: 4px; /* Space for scrollbar */
 }
 
 .event {
-    color: white;
-    padding: 3px 6px;
-    border-radius: 4px;
-    font-size: 0.8em;
-    margin-bottom: 4px;
-    cursor: pointer;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    background-image: var(--primary-gradient); /* Default event color */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    display: block; /* Ensure it takes full width available */
+  color: white;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  margin-bottom: 4px;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-image: var(--primary-gradient); /* Default event color */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: block; /* Ensure it takes full width available */
 }
 .event.multi-day-start {
-     border-top-right-radius: 0;
-     border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 .event.multi-day-middle {
-     border-radius: 0;
+  border-radius: 0;
 }
 .event.multi-day-end {
-     border-top-left-radius: 0;
-     border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
-
 
 .event:hover {
-    transform: scale(1.03);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transform: scale(1.03);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
-
 
 /* --- Reminders --- */
 .reminders-section {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: var(--border-radius-s);
+  margin-top: 20px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: var(--border-radius-s);
 }
 
 .reminders-section h2 {
-    text-align: center;
-    margin-bottom: 15px;
-    color: var(--text-secondary);
-    font-weight: 500;
+  text-align: center;
+  margin-bottom: 15px;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
 #reminders-list {
-    list-style: none;
-    padding: 0;
-    max-height: 150px;
-    overflow-y: auto;
+  list-style: none;
+  padding: 0;
+  max-height: 150px;
+  overflow-y: auto;
 }
 
 #reminders-list li {
-    background-image: var(--secondary-gradient);
-    color: #333; /* Darker text on light gradient */
-    padding: 10px 15px;
-    margin-bottom: 8px;
-    border-radius: var(--border-radius-s);
-    font-size: 0.9em;
-    font-weight: 500;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-image: var(--secondary-gradient);
+  color: #333; /* Darker text on light gradient */
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  border-radius: var(--border-radius-s);
+  font-size: 0.9em;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
 
 /* --- Modal Styles --- */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.6); /* Darker backdrop */
-     /* Align modal content center */
-     display: flex;
-     align-items: center;
-     justify-content: center;
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6); /* Darker backdrop */
+  /* Align modal content center */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-content {
-    margin: auto; /* Centering */
-    padding: 30px 40px;
-    width: 90%;
-    max-width: 600px;
-    border-radius: var(--border-radius-m);
-    position: relative;
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--shadow);
+  margin: auto; /* Centering */
+  padding: 30px 40px;
+  width: 90%;
+  max-width: 600px;
+  border-radius: var(--border-radius-m);
+  position: relative;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow);
 }
 
 .glassmorphic {
-    background: var(--glass-bg);
-    backdrop-filter: blur(15px) saturate(180%);
-    -webkit-backdrop-filter: blur(15px) saturate(180%); /* Safari */
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%); /* Safari */
 }
 
 .close-btn {
-    color: var(--text-secondary);
-    background: none;
-    border: none;
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 2em;
-    font-weight: bold;
-    cursor: pointer;
-    line-height: 1;
-    transition: color 0.2s ease;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 2em;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s ease;
 }
 
 .close-btn:hover {
-    color: var(--text-primary);
+  color: var(--text-primary);
 }
 
 #modal-title {
-    text-align: center;
-    margin-bottom: 25px;
-    font-size: 1.6em;
-    font-weight: 600;
-    color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.6em;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .form-group {
-    margin-bottom: 18px;
+  margin-bottom: 18px;
 }
 .form-row {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 18px;
+  display: flex;
+  gap: 15px;
+  margin-bottom: 18px;
 }
 .form-row .form-group {
-     flex: 1;
-     margin-bottom: 0;
+  flex: 1;
+  margin-bottom: 0;
 }
 
-
 #event-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    font-size: 0.95em;
-    color: var(--text-secondary);
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-size: 0.95em;
+  color: var(--text-secondary);
 }
 
 #event-form input[type="text"],
 #event-form input[type="date"],
 #event-form input[type="time"],
 #event-form textarea {
-    width: 100%; /* Use 100% width */
-    padding: 12px 15px;
-    border: 1px solid var(--glass-border);
-    border-radius: var(--border-radius-s);
-    background-color: rgba(0, 0, 0, 0.2); /* Darker input background */
-    color: var(--text-primary);
-    font-size: 1em;
-    box-sizing: border-box; /* Include padding in width */
-    transition: border-color 0.3s ease, background-color 0.3s ease;
+  width: 100%; /* Use 100% width */
+  padding: 12px 15px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-s);
+  background-color: rgba(0, 0, 0, 0.2); /* Darker input background */
+  color: var(--text-primary);
+  font-size: 1em;
+  box-sizing: border-box; /* Include padding in width */
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 #event-form input:focus,
 #event-form textarea:focus {
-    outline: none;
-    border-color: #4facfe; /* Highlight focus */
-    background-color: rgba(0, 0, 0, 0.3);
+  outline: none;
+  border-color: #4facfe; /* Highlight focus */
+  background-color: rgba(0, 0, 0, 0.3);
 }
 /* Style date/time input text color */
 #event-form input[type="date"],
 #event-form input[type="time"] {
-     color-scheme: dark; /* Improve picker appearance */
+  color-scheme: dark; /* Improve picker appearance */
 }
 
-
 #event-form textarea {
-    min-height: 80px;
-    resize: vertical;
+  min-height: 80px;
+  resize: vertical;
 }
 
 #event-form small {
-    display: block;
-    font-size: 0.8em;
-    color: var(--text-secondary);
-    margin-top: 5px;
+  display: block;
+  font-size: 0.8em;
+  color: var(--text-secondary);
+  margin-top: 5px;
 }
 
 .modal-actions {
-    margin-top: 30px;
-    display: flex;
-    justify-content: flex-end; /* Align buttons right */
-    gap: 10px; /* Space between buttons */
-    flex-wrap: wrap;
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end; /* Align buttons right */
+  gap: 10px; /* Space between buttons */
+  flex-wrap: wrap;
 }
 /* Give delete button its own space if needed */
 #delete-event-btn {
-     margin-right: auto; /* Push delete button to the left */
+  margin-right: auto; /* Push delete button to the left */
 }
-
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
-    .calendar-app { padding: 20px; }
-    .controls { flex-direction: column; align-items: stretch; }
-    .controls h2 { margin: 15px 0; font-size: 1.2em;}
-    .calendar-day { min-height: 80px; font-size: 0.85em; }
-    .modal-content { width: 95%; padding: 25px; }
-    #modal-title { font-size: 1.4em; }
-    .form-row { flex-direction: column; gap: 0; }
+  .calendar-app {
+    padding: 20px;
+  }
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .controls h2 {
+    margin: 15px 0;
+    font-size: 1.2em;
+  }
+  .calendar-day {
+    min-height: 80px;
+    font-size: 0.85em;
+  }
+  .modal-content {
+    width: 95%;
+    padding: 25px;
+  }
+  #modal-title {
+    font-size: 1.4em;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
 }
 
 @media (max-width: 480px) {
-    .app-header h1 { font-size: 1.8em; }
-    .calendar-day { min-height: 60px; padding: 5px; }
-    .event { font-size: 0.75em; padding: 2px 4px;}
-    .modal-actions { justify-content: center; }
-     #delete-event-btn { margin-right: 0; margin-bottom: 10px; width: 100%; } /* Stack delete button */
+  .app-header h1 {
+    font-size: 1.8em;
+  }
+  .calendar-day {
+    min-height: 60px;
+    padding: 5px;
+  }
+  .event {
+    font-size: 0.75em;
+    padding: 2px 4px;
+  }
+  .modal-actions {
+    justify-content: center;
+  }
+  #delete-event-btn {
+    margin-right: 0;
+    margin-bottom: 10px;
+    width: 100%;
+  } /* Stack delete button */
 }
 
 /* Custom scrollbar for event containers */
@@ -431,4 +465,97 @@ body {
   background-color: var(--glass-border);
   border-radius: 10px;
   border: 1px solid var(--glass-bg);
+}
+
+/* style.css */
+/* Keep all styles from the previous step EXCEPT the @media blocks */
+
+/* --- Additions / Modifications --- */
+
+/* Booking Link Container */
+.booking-link-container {
+  margin-bottom: 20px; /* Space below the booking link */
+  text-align: center;
+}
+.booking-btn {
+  /* Style specific to the booking button if needed */
+  display: inline-block; /* Allow centering */
+  background-image: var(--secondary-gradient); /* Different gradient */
+}
+
+/* Event Icon and Animation */
+.event {
+  /* Existing styles ... */
+  display: flex; /* Align icon and text */
+  align-items: center;
+  animation: fadeIn 0.5s ease forwards; /* Add fade-in animation */
+}
+
+.event i {
+  /* Style for the icon */
+  margin-right: 5px; /* Space between icon and text */
+  font-size: 0.9em; /* Adjust icon size */
+  min-width: 12px; /* Ensure icon takes some space */
+  text-align: center;
+  opacity: 0.8;
+}
+.event .event-text {
+  /* Class for the text part */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Simple fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Pulse animation (optional, can be added on click/hover via JS if desired) */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.event.animated-pulse {
+  animation: pulse 0.6s ease;
+}
+
+/* Modal Additions */
+#event-form input[type="text"]#event-meeting-link {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.1
+  ); /* Slightly different background for link */
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+/* Add icon styles to buttons in modal actions */
+.modal-actions button i {
+  margin-right: 6px;
+}
+
+/* Ensure main control buttons have icons */
+.controls .control-btn i {
+  font-size: 0.9em; /* Adjust icon size if needed */
+}
+.controls .add-btn i {
+  margin-right: 6px;
 }
