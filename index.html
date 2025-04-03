@@ -1,76 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart AI Calendar</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Calendar ✨</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    </head>
 <body>
-  <div class="calendar-app">
-    <header>
-      <h1>Smart AI Calendar</h1>
-      <div class="controls">
-        <button id="prev-month">&lt; Prev</button>
-        <h2 id="current-month-year">April 2025</h2>
-        <button id="next-month">Next &gt;</button>
-        <button id="add-event-btn">Add Event</button>
-        <button id="sync-google-btn" title="Connect Google Calendar (Simulation)">G</button>
-        <button id="sync-outlook-btn" title="Connect Outlook Calendar (Simulation)">O</button>
-      </div>
-    </header>
+    <div class="app-background"> <div class="calendar-app">
+            <header class="app-header">
+                <h1>AI Calendar ✨</h1>
+                <div class="controls">
+                    <button id="prev-month" class="control-btn">&lt;</button>
+                    <h2 id="current-month-year">April 2025</h2>
+                    <button id="next-month" class="control-btn">&gt;</button>
+                    <button id="add-event-btn" class="action-btn add-btn">
+                        Add Event
+                    </button>
+                    <button id="sync-google-btn" class="sync-btn" title="Connect Google Calendar (Simulation)">G</button>
+                    <button id="sync-outlook-btn" class="sync-btn" title="Connect Outlook Calendar (Simulation)">O</button>
+                </div>
+            </header>
 
-    <div id="calendar-grid" class="calendar-grid">
-      <div class="day-header">Sun</div>
-      <div class="day-header">Mon</div>
-      <div class="day-header">Tue</div>
-      <div class="day-header">Wed</div>
-      <div class="day-header">Thu</div>
-      <div class="day-header">Fri</div>
-      <div class="day-header">Sat</div>
+            <div id="calendar-grid" class="calendar-grid">
+                <div class="day-header">Sun</div>
+                <div class="day-header">Mon</div>
+                <div class="day-header">Tue</div>
+                <div class="day-header">Wed</div>
+                <div class="day-header">Thu</div>
+                <div class="day-header">Fri</div>
+                <div class="day-header">Sat</div>
+                </div>
+
+            <div id="reminders-section" class="reminders-section">
+                <h2>Upcoming</h2>
+                <ul id="reminders-list">
+                    </ul>
+            </div>
+
+            <div id="event-modal" class="modal">
+                <div class="modal-content glassmorphic">
+                    <button class="close-btn">&times;</button>
+                    <h3 id="modal-title">Create Event</h3>
+                    <form id="event-form">
+                        <div class="form-group">
+                            <label for="event-title">Title:</label>
+                            <input type="text" id="event-title" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="event-start-date">Start Date:</label>
+                                <input type="date" id="event-start-date" required>
+                            </div>
+                             <div class="form-group">
+                                <label for="event-end-date">End Date:</label>
+                                <input type="date" id="event-end-date">
+                                <small> (Optional: for multi-day events)</small>
+                            </div>
+                        </div>
+
+                         <div class="form-group">
+                             <label for="event-time">Time:</label>
+                             <input type="time" id="event-time">
+                             <small> (Leave blank for all-day)</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="event-description">Description:</label>
+                            <textarea id="event-description"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="event-attendees">Attendees (Emails):</label>
+                            <input type="text" id="event-attendees" placeholder="simulated@example.com, ...">
+                        </div>
+
+
+                        <div class="modal-actions">
+                           <button type="button" id="delete-event-btn" class="action-btn delete-btn" style="display: none;">Delete</button>
+                           <button type="button" id="reschedule-btn" class="action-btn simulated-btn" style="display: none;">AI Reschedule</button>
+                           <button type="button" id="join-meet-btn" class="action-btn simulated-btn" style="display: none;">Join Meet</button>
+                           <button type="submit" id="save-event-btn" class="action-btn save-btn">Save Event</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div id="reminders-section">
-      <h2>Upcoming Reminders (Simulated)</h2>
-      <ul id="reminders-list">
-      </ul>
-    </div>
-
-    <div id="event-modal" class="modal">
-      <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h3 id="modal-title">Add New Event</h3>
-        <form id="event-form">
-          <label for="event-title">Title:</label>
-          <input type="text" id="event-title" required>
-
-          <label for="event-date">Date:</label>
-          <input type="date" id="event-date" required>
-
-          <label for="event-time">Time:</label>
-          <input type="time" id="event-time" required>
-
-          <label for="event-description">Description:</label>
-          <textarea id="event-description"></textarea>
-
-          <label for="event-attendees">Attendees (Emails):</label>
-          <input type="text" id="event-attendees" placeholder="comma, separated, emails">
-
-          <div class="modal-actions">
-            <button type="submit" id="save-event-btn">Save Event</button>
-            <button type="button" id="join-meet-btn" class="simulated-btn" style="display: none;">Join Meet
-              (Simulated)</button>
-            <button type="button" id="reschedule-btn" class="simulated-btn" style="display: none;">AI Reschedule
-              (Simulated)</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
-
 </html>
