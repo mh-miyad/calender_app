@@ -4,16 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book a Meeting - [Your Name]</title>
+  <title>Book a Meeting - [Your Name] (Alpine.js)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="booking.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    [x-cloak] {
+      display: none !important;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="booking-container">
+  <div class="booking-container" x-data="bookingApp()" x-init="init" x-cloak>
     <div class="profile-card">
       <div class="profile-avatar">
         <img src="https://via.placeholder.com/100" alt="Your Name">
@@ -26,55 +32,186 @@
           A quick chat to discuss collaboration or answer your questions. Please pick a time that works best for you
           below.
         </p>
-        <p class="timezone"><i class="fas fa-globe"></i> Timezone: <span id="user-timezone">Detecting...</span></p>
+        <p class="timezone"><i class="fas fa-globe"></i> Timezone: <span x-text="userTimezone"></span></p>
       </div>
     </div>
 
     <div class="booking-widget">
-      <div class="calendar-section">
+      <div class="calendar-section" x-show="!showConfirmation">
         <h3>Select a Date & Time</h3>
         <div class="date-selector">
-          <button id="prev-day" disabled>&lt;</button>
-          <span id="selected-date">April 3, 2025</span>
-          <button id="next-day">&gt;</button>
+          <button @click="changeDay(-1)" :disabled="isPrevDayDisabled()">&lt;</button>
+          <span x-text="formatDate(currentDate)"></span>
+          <button @click="changeDay(1)">&gt;</button>
         </div>
         <div id="time-slots" class="time-slots">
-          <p>Loading available times...</p>
+          <template x-if="availableSlots.length === 0">
+            <p>No available slots for this day.</p>
+          </template>
+          <template x-for="slot in availableSlots" :key="slot">
+            <button class="time-slot-btn"
+              :class="{ 'selected': selectedSlot && selectedSlot.time === slot && selectedSlot.date === formatDateStr(currentDate) }"
+              @click="selectSlot(slot)" :disabled="isSlotDisabled(slot)" x-text="slot"></button>
+          </template>
         </div>
       </div>
 
-      <div id="booking-form-section" class="booking-form-section" style="display: none;">
+      <div id="booking-form-section" class="booking-form-section" x-show="selectedSlot && !showConfirmation"
+        x-transition>
         <h3>Enter Your Details</h3>
-        <p>Booking for: <strong id="selected-slot-display"></strong></p>
-        <form id="booking-form">
+        <p>Booking for: <strong x-text="`${formatDate(currentDate)} at ${selectedSlot?.time}`"></strong></p>
+        <form id="booking-form" @submit.prevent="confirmBooking">
           <div class="form-group">
             <label for="booker-name">Your Name:</label>
-            <input type="text" id="booker-name" required>
+            <input type="text" id="booker-name" x-model="bookerDetails.name" required>
           </div>
           <div class="form-group">
             <label for="booker-email">Your Email:</label>
-            <input type="email" id="booker-email" required>
+            <input type="email" id="booker-email" x-model="bookerDetails.email" required>
           </div>
           <div class="form-group">
             <label for="booker-notes">Additional Notes (Optional):</label>
-            <textarea id="booker-notes"></textarea>
+            <textarea id="booker-notes" x-model="bookerDetails.notes"></textarea>
           </div>
           <button type="submit" class="confirm-btn">Confirm Booking (Simulated)</button>
-          <button type="button" id="cancel-selection-btn" class="cancel-btn">Cancel</button>
+          <button type="button" @click="cancelSelection" class="cancel-btn">Cancel</button>
         </form>
       </div>
-    </div>
 
-    <div id="confirmation-message" class="confirmation-message" style="display: none;">
-      <h3><i class="fas fa-check-circle"></i> Booking Confirmed!</h3>
-      <p>Thank you, <span id="confirmed-name"></span>!</p>
-      <p>A calendar invitation for your 30 Min Meeting on <strong id="confirmed-slot"></strong> has been simulated.</p>
-      <p>(In a real app, an email and calendar event would be generated via the backend).</p>
-      <button id="book-another-btn" class="confirm-btn">Book Another</button>
+      <div id="confirmation-message" class="confirmation-message" x-show="showConfirmation" x-transition>
+        <h3><i class="fas fa-check-circle"></i> Booking Confirmed!</h3>
+        <p>Thank you, <span x-text="bookerDetails.name"></span>!</p>
+        <p>A calendar invitation for your 30 Min Meeting on <strong
+            x-text="`${formatDate(currentDate)} at ${selectedSlot?.time}`"></strong> has been simulated.</p>
+        <p>(In a real app, an email and calendar event would be generated via the backend).</p>
+        <button @click="bookAnother" class="confirm-btn">Book Another</button>
+      </div>
     </div>
-
   </div>
-  <script src="booking.js"></script>
+  <script>
+    function bookingApp() {
+      return {
+        currentDate: null, // Date object for the selected day
+        availableSlots: [],
+        selectedSlot: null, // { date: 'YYYY-MM-DD', time: 'HH:MM AM/PM' }
+        showBookingForm: false, // Derived from selectedSlot now
+        showConfirmation: false,
+        bookerDetails: { name: '', email: '', notes: '' },
+        userTimezone: 'Detecting...',
+
+        // --- Initialization ---
+        init() {
+          this.currentDate = new Date(); // Start with today
+          this.currentDate.setHours(0, 0, 0, 0); // Normalize
+          this.detectTimezone();
+          this.generateSlots();
+          console.log("Booking App Initialized (Alpine.js)");
+        },
+
+        // --- Date & Time Logic ---
+        detectTimezone() {
+          try {
+            this.userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          } catch (e) { this.userTimezone = "Couldn't detect"; }
+        },
+
+        formatDate(date) {
+          if (!date) return '';
+          return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+        },
+
+        formatDateStr(date) {
+          if (!date) return '';
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          const day = String(date.getDate()).padStart(2, '0');
+          return `${year}-${month}-${day}`;
+        },
+
+        generateSlots() {
+          const dayOfWeek = this.currentDate.getDay();
+          let times = [];
+          if (dayOfWeek > 0 && dayOfWeek < 6) { // Weekdays
+            times = ['09:00 AM', '09:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '01:00 PM', '01:30 PM', '02:00 PM', '03:30 PM', '04:00 PM'];
+          } else { // Weekends
+            times = ['10:00 AM', '10:30 AM', '11:00 AM'];
+          }
+          this.availableSlots = times;
+          this.cancelSelection(); // Reset selection when regenerating slots
+        },
+
+        isSlotDisabled(time) {
+          const now = new Date();
+          const isToday = this.currentDate.toDateString() === now.toDateString();
+          if (!isToday) return false; // Only disable for today
+
+          try {
+            const [hourMinute, period] = time.split(' ');
+            let [hour, minute] = hourMinute.split(':').map(Number);
+            if (period === 'PM' && hour !== 12) hour += 12;
+            if (period === 'AM' && hour === 12) hour = 0; // Midnight
+
+            return now.getHours() > hour || (now.getHours() === hour && now.getMinutes() >= minute);
+          } catch (e) { return true; } // Disable if parsing fails
+        },
+
+        isPrevDayDisabled() {
+          const todayCheck = new Date(); todayCheck.setHours(0, 0, 0, 0);
+          return this.currentDate <= todayCheck;
+        },
+
+
+        changeDay(offset) {
+          const newDate = new Date(this.currentDate);
+          newDate.setDate(newDate.getDate() + offset);
+          this.currentDate = newDate;
+          this.generateSlots(); // Regenerate slots for the new date
+        },
+
+        // --- Booking Flow ---
+        selectSlot(time) {
+          this.selectedSlot = {
+            date: this.formatDateStr(this.currentDate),
+            time: time
+          };
+          // No need for showBookingForm state, derived from selectedSlot
+        },
+
+        cancelSelection() {
+          this.selectedSlot = null;
+          this.bookerDetails = { name: '', email: '', notes: '' }; // Reset form too
+          // Hide derived form implicitly
+        },
+
+        confirmBooking() {
+          if (!this.bookerDetails.name || !this.bookerDetails.email) {
+            alert("Please enter your name and email."); return;
+          }
+          if (!this.selectedSlot) {
+            alert("Error: No time slot selected."); return;
+          }
+
+          console.log("Booking Simulated (Alpine):", {
+            ...this.bookerDetails,
+            slot: this.selectedSlot
+          });
+          alert("Booking Confirmed (Simulation)!\nNo actual event created or email sent.");
+
+          this.showConfirmation = true; // Show confirmation message
+          // Sections will hide automatically based on x-show logic
+        },
+
+        bookAnother() {
+          this.showConfirmation = false;
+          this.cancelSelection(); // Reset selection and form
+          // Optionally reset date to today or keep current date
+          // this.currentDate = new Date(); this.currentDate.setHours(0,0,0,0);
+          // this.generateSlots();
+        }
+      }
+    }
+  </script>
+
 </body>
 
 </html>
