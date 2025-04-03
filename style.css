@@ -1,0 +1,296 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background-color: #f4f7f6;
+  color: #333;
+}
+
+.calendar-app {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+header h1 {
+  margin-bottom: 15px;
+  color: #005a9c; /* Example color */
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 10px; /* Add space between buttons */
+}
+
+.controls h2 {
+  margin: 0 15px;
+  flex-grow: 1; /* Allow title to take space */
+  text-align: center;
+}
+
+.controls button {
+  padding: 8px 15px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9em;
+  transition: background-color 0.2s ease;
+}
+
+.controls button:hover {
+  background-color: #0056b3;
+}
+
+#add-event-btn {
+  background-color: #28a745;
+}
+#add-event-btn:hover {
+  background-color: #218838;
+}
+
+#sync-google-btn,
+#sync-outlook-btn {
+  background-color: #6c757d;
+  font-weight: bold;
+  width: 35px; /* Make sync buttons small */
+}
+#sync-google-btn:hover,
+#sync-outlook-btn:hover {
+  background-color: #5a6268;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background-color: #ddd; /* Grid lines */
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.day-header,
+.calendar-day {
+  padding: 10px 5px;
+  background-color: #fff;
+  min-height: 80px; /* Give days some height */
+  font-size: 0.85em;
+  position: relative; /* For potential event positioning */
+}
+
+.day-header {
+  font-weight: bold;
+  text-align: center;
+  background-color: #f8f9fa;
+  min-height: auto;
+  padding: 8px 5px;
+}
+
+.calendar-day span {
+  /* Day number */
+  display: block;
+  text-align: right;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.calendar-day.other-month {
+  background-color: #f9f9f9;
+  color: #aaa;
+}
+
+.calendar-day.today {
+  background-color: #eaf6ff;
+}
+.calendar-day.today span {
+  color: #007bff;
+  font-size: 1.1em;
+}
+
+.event {
+  background-color: #007bff;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 0.75em;
+  margin-bottom: 3px;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.event:hover {
+  opacity: 0.8;
+}
+
+/* Reminders */
+#reminders-section {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+#reminders-section h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+#reminders-list {
+  list-style: none;
+  padding: 0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+#reminders-list li {
+  background-color: #ffc107; /* Warning color */
+  color: #333;
+  padding: 8px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Dim background */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 8px;
+  position: relative; /* For close button */
+}
+
+.close-btn {
+  color: #aaa;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+  color: black;
+  text-decoration: none;
+}
+
+#event-form label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#event-form input[type="text"],
+#event-form input[type="date"],
+#event-form input[type="time"],
+#event-form textarea {
+  width: calc(100% - 16px); /* Account for padding */
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#event-form textarea {
+  min-height: 60px;
+  resize: vertical;
+}
+
+.modal-actions {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.modal-actions button {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+#save-event-btn {
+  background-color: #28a745;
+  color: white;
+}
+#save-event-btn:hover {
+  background-color: #218838;
+}
+
+.simulated-btn {
+  background-color: #ffc107; /* Yellow for simulation */
+  color: #333;
+}
+.simulated-btn:hover {
+  background-color: #e0a800;
+}
+
+/* Basic Responsive Adjustments */
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column; /* Stack controls vertically */
+    align-items: stretch; /* Make buttons full width */
+  }
+  .controls h2 {
+    margin: 10px 0; /* Add space around title */
+  }
+  .calendar-day {
+    min-height: 60px; /* Reduce height on small screens */
+    font-size: 0.8em;
+  }
+  .event {
+    font-size: 0.7em;
+  }
+  .modal-content {
+    width: 90%;
+    margin: 15% auto; /* Adjust margin */
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-day {
+    min-height: 50px; /* Further reduce height */
+    padding: 5px 2px;
+  }
+  .event {
+    padding: 1px 3px;
+  }
+  .day-header {
+    font-size: 0.8em;
+    padding: 5px 2px;
+  }
+}
