@@ -1,0 +1,151 @@
+/* responsive.css */
+
+@media (max-width: 768px) {
+  .calendar-app {
+    padding: 15px;
+  } /* Adjusted padding */
+
+  .booking-link-container {
+    margin-bottom: 15px; /* Space below booking link */
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  } /* Reduced gap */
+  .controls h2 {
+    margin: 10px 0;
+    font-size: 1.2em;
+  } /* Reduced margin */
+  .calendar-day {
+    min-height: 70px;
+    font-size: 0.8em;
+    padding: 6px;
+  } /* Adjusted */
+  .event i {
+    margin-right: 3px;
+    font-size: 0.85em;
+  } /* Adjust icon size/spacing */
+  .event .event-text {
+    display: inline;
+  } /* Ensure text shows beside icon */
+
+  .modal-content {
+    width: 95%;
+    padding: 20px;
+  } /* Adjusted padding */
+  #modal-title {
+    font-size: 1.3em;
+  } /* Reduced size */
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  #event-form label {
+    margin-bottom: 5px;
+  } /* Reduced margin */
+  #event-form input,
+  #event-form textarea {
+    padding: 10px;
+  } /* Adjusted padding */
+  .modal-actions button {
+    padding: 10px 15px;
+    font-size: 0.9em;
+  } /* Adjust button size */
+
+  .reminders-section {
+    padding: 15px;
+  } /* Adjusted padding */
+  .reminders-section h2 {
+    font-size: 1.1em;
+  } /* Reduced size */
+  #reminders-list li {
+    padding: 8px 12px;
+    font-size: 0.85em;
+  } /* Adjusted padding */
+
+  /* Adjustments for booking clone if needed */
+}
+
+@media (max-width: 480px) {
+  .app-header h1 {
+    font-size: 1.6em;
+  } /* Reduced size */
+  .controls h2 {
+    font-size: 1.1em;
+  }
+  .control-btn,
+  .action-btn,
+  .sync-btn {
+    padding: 8px 12px;
+    font-size: 0.85em;
+  } /* Adjust button size */
+  .add-btn i,
+  .delete-btn i,
+  .save-btn i {
+    display: none;
+  } /* Hide icons on small buttons */
+
+  .calendar-day {
+    min-height: 55px;
+    padding: 4px;
+  } /* Adjusted */
+  .day-header {
+    font-size: 0.75em;
+    padding: 6px 2px;
+  } /* Adjusted */
+  .event {
+    font-size: 0.7em;
+    padding: 2px 4px;
+    margin-bottom: 2px;
+  } /* Adjusted */
+  .event .event-text {
+    display: none;
+  } /* Hide event text, show only icon on smallest screens */
+  .event i {
+    margin-right: 0;
+  }
+
+  .modal-content {
+    padding: 15px;
+  } /* Adjusted padding */
+  #modal-title {
+    font-size: 1.2em;
+  } /* Reduced size */
+  #event-form input,
+  #event-form textarea {
+    padding: 8px;
+    font-size: 0.9em;
+  } /* Adjusted padding */
+  .modal-actions {
+    justify-content: center;
+    gap: 8px;
+  }
+  .modal-actions button {
+    width: calc(50% - 4px);
+  } /* Make buttons take half width */
+  #delete-event-btn {
+    margin-right: 0;
+    width: 100%;
+    margin-bottom: 8px;
+  } /* Stack delete button */
+  #delete-event-btn,
+  #save-event-btn {
+    order: 2;
+  } /* Push delete/save down */
+  #reschedule-btn,
+  #join-meet-btn {
+    order: 1;
+  }
+
+  .reminders-section h2 {
+    font-size: 1em;
+  } /* Reduced size */
+  #reminders-list li {
+    padding: 6px 10px;
+    font-size: 0.8em;
+  } /* Adjusted padding */
+
+  /* Adjustments for booking clone if needed */
+}

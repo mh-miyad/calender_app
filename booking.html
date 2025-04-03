@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Meeting - [Your Name]</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="booking.css">
+</head>
+
+<body>
+  <div class="booking-container">
+    <div class="profile-card">
+      <div class="profile-avatar">
+        <img src="https://via.placeholder.com/100" alt="Your Name">
+      </div>
+      <div class="profile-info">
+        <h2>Book a meeting with [Your Name]</h2>
+        <p class="event-type"><i class="far fa-clock"></i> 30 Min Meeting</p>
+        <p class="description">
+          <i class="fas fa-info-circle"></i>
+          A quick chat to discuss collaboration or answer your questions. Please pick a time that works best for you
+          below.
+        </p>
+        <p class="timezone"><i class="fas fa-globe"></i> Timezone: <span id="user-timezone">Detecting...</span></p>
+      </div>
+    </div>
+
+    <div class="booking-widget">
+      <div class="calendar-section">
+        <h3>Select a Date & Time</h3>
+        <div class="date-selector">
+          <button id="prev-day" disabled>&lt;</button>
+          <span id="selected-date">April 3, 2025</span>
+          <button id="next-day">&gt;</button>
+        </div>
+        <div id="time-slots" class="time-slots">
+          <p>Loading available times...</p>
+        </div>
+      </div>
+
+      <div id="booking-form-section" class="booking-form-section" style="display: none;">
+        <h3>Enter Your Details</h3>
+        <p>Booking for: <strong id="selected-slot-display"></strong></p>
+        <form id="booking-form">
+          <div class="form-group">
+            <label for="booker-name">Your Name:</label>
+            <input type="text" id="booker-name" required>
+          </div>
+          <div class="form-group">
+            <label for="booker-email">Your Email:</label>
+            <input type="email" id="booker-email" required>
+          </div>
+          <div class="form-group">
+            <label for="booker-notes">Additional Notes (Optional):</label>
+            <textarea id="booker-notes"></textarea>
+          </div>
+          <button type="submit" class="confirm-btn">Confirm Booking (Simulated)</button>
+          <button type="button" id="cancel-selection-btn" class="cancel-btn">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="confirmation-message" class="confirmation-message" style="display: none;">
+      <h3><i class="fas fa-check-circle"></i> Booking Confirmed!</h3>
+      <p>Thank you, <span id="confirmed-name"></span>!</p>
+      <p>A calendar invitation for your 30 Min Meeting on <strong id="confirmed-slot"></strong> has been simulated.</p>
+      <p>(In a real app, an email and calendar event would be generated via the backend).</p>
+      <button id="book-another-btn" class="confirm-btn">Book Another</button>
+    </div>
+
+  </div>
+  <script src="booking.js"></script>
+</body>
+
+</html>
